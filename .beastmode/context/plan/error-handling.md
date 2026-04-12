@@ -1,13 +1,17 @@
 # Error Handling
 
 ## Error Types
-[Populated by init or retro]
+- Missing `.2b/` directory
+- Missing required subdirectory (system, concepts, instructions)
+- I/O errors reading files
 
 ## Recovery Strategy
-[Populated by init or retro]
+- Fail fast with non-zero exit code
+- No retry logic -- filesystem errors are deterministic in this context
 
 ## User-Facing Errors
-[Populated by init or retro]
+- Written to stderr with descriptive message identifying the specific missing directory
+- Format: `Error: Required directory ".2b/<subdir>/" not found in <basePath>`
 
 ## Logging
-[Populated by init or retro]
+- No logging framework -- stderr for errors, stdout for JSON output only

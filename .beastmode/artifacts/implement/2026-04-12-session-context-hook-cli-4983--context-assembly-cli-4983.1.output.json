@@ -1,0 +1,12 @@
+{
+  "status": "completed",
+  "artifacts": {
+    "features": [
+      {
+        "feature-slug": "context-assembly-cli-4983.1",
+        "feature-name": "Context Assembly CLI",
+        "status": "completed"
+      }
+    ]
+  }
+}

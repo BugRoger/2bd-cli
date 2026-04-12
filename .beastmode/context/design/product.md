@@ -1,13 +1,18 @@
 # Product
 
 ## Vision
-[Populated by init or retro]
+Minimal CLI tool for injecting structured project context into Claude Code sessions via hooks.
 
 ## Goals
-[Populated by init or retro]
+- Zero-install usage via `bunx @bugroger/2bd-cli`
+- Convention-over-configuration: `.2b/` directory with fixed category structure
+- Claude Code hook contract compliance (SessionStart)
 
 ## Core Capabilities
-[Populated by init or retro]
+- Context assembly from `.2b/{system,concepts,instructions}/*.md`
+- Hook-compatible JSON output to stdout
 
 ## Differentiators
-[Populated by init or retro]
+- Single production dependency (commander)
+- No configuration file required for v1
+- Flat, predictable directory convention

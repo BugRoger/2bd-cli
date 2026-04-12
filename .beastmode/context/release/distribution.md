@@ -1,13 +1,14 @@
 # Distribution
 
 ## Package Registry
-[Populated by init or retro]
+- npm: `@bugroger/2bd-cli`
 
 ## Publishing Process
-[Populated by init or retro]
+- Not yet automated -- manual `npm publish` or `bun publish`
 
 ## Artifact Hosting
-[Populated by init or retro]
+- npm registry
 
 ## Release Channels
-[Populated by init or retro]
+- Single channel: npm latest
+- Usage: `bunx @bugroger/2bd-cli hooks session-start`

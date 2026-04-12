@@ -1,13 +1,20 @@
 # Tech Stack
 
 ## Core Stack
-[Populated by init or retro]
+- Runtime: Bun
+- Language: TypeScript (strict mode, ESM-only, target esnext)
+- CLI framework: commander
 
 ## Key Dependencies
-[Populated by init or retro]
+- Production: commander (^13.1.0)
+- Dev: vitest (^3.1.1), typescript (^5.8.3), @types/bun (^1.2.9)
 
 ## Development Tools
-[Populated by init or retro]
+- Test runner: `bunx vitest run`
+- Type check: `bunx tsc --noEmit`
+- Package manager: bun
 
 ## Commands
-[Populated by init or retro]
+- `bun run test` -- run full test suite
+- `bun run test:watch` -- run tests in watch mode
+- `bun run src/cli.ts hooks session-start` -- run CLI locally

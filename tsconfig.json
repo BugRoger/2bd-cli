@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "types": ["bun-types"],
+    "verbatimModuleSyntax": true
+  },
+  "include": ["src/**/*.ts", "tests/**/*.ts"]
+}

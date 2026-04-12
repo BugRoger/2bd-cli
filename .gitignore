@@ -1,2 +1,4 @@
 .claude/settings-local.json
 2bd-cli.code-workspace
+node_modules/
+dist/

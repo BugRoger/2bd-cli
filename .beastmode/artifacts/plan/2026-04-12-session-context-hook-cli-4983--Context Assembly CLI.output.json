@@ -1,0 +1,12 @@
+{
+  "status": "completed",
+  "artifacts": {
+    "features": [
+      {
+        "feature-name": "Context Assembly CLI",
+        "plan": "2026-04-12-session-context-hook-cli-4983--context-assembly-cli.1.md",
+        "wave": 1
+      }
+    ]
+  }
+}

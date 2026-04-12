@@ -1,15 +1,38 @@
 {
   "version": 1,
   "entities": {
-    "bm-6ea8": {
-      "id": "bm-6ea8",
+    "bm-4983": {
+      "id": "bm-4983",
       "type": "epic",
-      "name": "hardwire-firewall",
-      "slug": "hardwire-firewall-6ea8",
-      "status": "design",
+      "name": "Session Context Hook CLI",
+      "slug": "session-context-hook-cli-4983",
+      "status": "release",
       "depends_on": [],
-      "created_at": "2026-04-12T18:59:38.448Z",
-      "updated_at": "2026-04-12T18:59:38.448Z"
+      "created_at": "2026-04-12T19:02:55.761Z",
+      "updated_at": "2026-04-12T19:44:33.267Z",
+      "worktree": {
+        "branch": "feature/session-context-hook-cli-4983",
+        "path": "/Users/D038720/Code/github.com/bugroger/2bd-cli/.claude/worktrees/session-context-hook-cli-4983"
+      },
+      "summary": {
+        "problem": "Claude Code sessions start without project-specific context. There is no lightweight, self-contained way to inject structured knowledge into Claude's system context at session start. Users must either rely on CLAUDE.md conventions or build custom tooling from scratch.",
+        "solution": "A minimal CLI tool (`@bugroger/2bd-cli`) distributed via npm that walks a `.2b/` directory structure, reads markdown files organized by category (system, concepts, instructions), and outputs Claude Code hook-compatible JSON. Invoked as `2bd hooks session-start`, it assembles context from `.2b/{system,concepts,instructions}/*.md` in a fixed category order, with files sorted alphabetically within each category. The output is a JSON object with `hookSpecificOutput.additionalContext` containing the concatenated markdown, ready for injection into Claude's system context."
+      },
+      "design": "2026-04-12-session-context-hook-cli-4983.md"
+    },
+    "bm-4983.1": {
+      "id": "bm-4983.1",
+      "type": "feature",
+      "parent": "bm-4983",
+      "name": "Context Assembly CLI",
+      "slug": "context-assembly-cli-4983.1",
+      "description": "### Project Scaffolding\n\nSet up the npm package with Bun + TypeScript. Configure `package.json` with the `@bugroger/2bd-cli` name, `bin.2bd` entry pointing to the CLI entry point, and `commander` as the sole production dependency. Configure TypeScript in strict mode, ESM-only, targeting esnext. Add vitest as the dev dependency for testing.\n\n### CLI Entry Point\n\nCreate a CLI entry point that uses commander to register the extensible `<command> <subcommand>` pattern. Register `hooks` as a command group and `session-start` as its subcommand. The entry point delegates to the context assembly module when `hooks session-start` is invoked.\n\n### Directory Validation Module\n\nA module that validates the `.2b/` directory structure exists in the current working directory. It checks for the presence of `.2b/` and its three required subdirectories: `system/`, `concepts/`, `instructions/`. On any missing directory, it writes a descriptive error message to stderr and exits with a non-zero code. The error message must identify which specific directory is missing.\n\n### Context Assembly Module\n\nThe core module that:\n\n1. Walks each category directory in fixed order: system → concepts → instructions\n2. Within each category, discovers direct child `.md` files only (no recursion, no non-markdown files)\n3. Sorts discovered files alphabetically within each category\n4. For each file, reads its contents and prepends a `## <relative-path>` header (e.g., `## .2b/system/persona.md`)\n5. Concatenates all sections into a single markdown string\n6. Wraps the result in the Claude Code hook JSON contract:\n   ```json\n   {\n     \"hookSpecificOutput\": {\n       \"hookEventName\": \"SessionStart\",\n       \"additionalContext\": \"<concatenated markdown>\"\n     }\n   }\n   ```\n7. Writes the JSON to stdout\n\nEmpty categories are valid — they contribute no sections. If all categories are empty, the output JSON has an empty `additionalContext` string.\n\n### Test Suite\n\nUnit tests for the context assembly module: verify file discovery, alphabetical sorting, category ordering, markdown header prefixing, JSON output structure, non-markdown file filtering, and empty directory handling.\n\nIntegration tests: invoke the CLI binary as a subprocess against temporary `.2b/` directory structures. Assert exit codes, stdout JSON, and stderr error messages for both happy paths and error cases (missing `.2b/`, missing subdirectories).",
+      "status": "completed",
+      "depends_on": [],
+      "created_at": "2026-04-12T19:31:21.160Z",
+      "updated_at": "2026-04-12T19:43:10.960Z",
+      "plan": "2026-04-12-session-context-hook-cli-4983--context-assembly-cli.1.md",
+      "wave": 1
     }
   }
 }

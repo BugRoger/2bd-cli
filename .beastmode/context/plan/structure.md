@@ -1,13 +1,34 @@
 # Structure
 
 ## Directory Layout
-[Populated by init or retro]
+```
+src/
+  cli.ts                          # CLI entry point (commander)
+  hooks/
+    session-start.ts              # Per-hook orchestrator
+  lib/
+    validate-dirs.ts              # Pure library modules
+    assemble-context.ts
+    hook-output.ts
+tests/
+  unit/
+    validate-dirs.test.ts
+    assemble-context.test.ts
+    hook-output.test.ts
+  integration/
+    session-start.integration.test.ts
+```
 
 ## Key Directories
-[Populated by init or retro]
+- `src/hooks/` -- one file per hook subcommand (orchestrators)
+- `src/lib/` -- pure library modules (no side effects except fs reads)
+- `tests/unit/` -- unit tests per library module
+- `tests/integration/` -- CLI subprocess tests
 
 ## Key File Locations
-[Populated by init or retro]
+- Package config: `package.json`, `tsconfig.json`
+- CLI entry: `src/cli.ts`
 
 ## Where to Add New Code
-[Populated by init or retro]
+- New hook type: add `src/hooks/<hook-name>.ts` orchestrator, register in `src/cli.ts`
+- New library module: add to `src/lib/`, unit test in `tests/unit/`
