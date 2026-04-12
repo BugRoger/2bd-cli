@@ -1,0 +1,20 @@
+{
+  "name": "@bugroger/2bd-cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "2bd": "./src/cli.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "commander": "^13.1.0"
+  },
+  "devDependencies": {
+    "vitest": "^3.1.1",
+    "typescript": "^5.8.3",
+    "@types/bun": "^1.2.9"
+  }
+}
