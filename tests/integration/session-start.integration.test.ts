@@ -2,19 +2,36 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
+import { spawn } from "node:child_process";
 
 const CLI_PATH = join(import.meta.dirname, "../../src/cli.ts");
 
 async function runCli(cwd: string): Promise<{ stdout: string; stderr: string; exitCode: number }> {
-  const proc = Bun.spawn(["bun", "run", CLI_PATH, "hooks", "session-start"], {
-    cwd,
-    stdout: "pipe",
-    stderr: "pipe",
+  return new Promise((resolve, reject) => {
+    let stdout = "";
+    let stderr = "";
+
+    const proc = spawn("bun", ["run", CLI_PATH, "hooks", "session-start"], {
+      cwd,
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+
+    proc.stdout.on("data", (data) => {
+      stdout += data.toString();
+    });
+
+    proc.stderr.on("data", (data) => {
+      stderr += data.toString();
+    });
+
+    proc.on("close", (code) => {
+      resolve({ stdout, stderr, exitCode: code ?? 1 });
+    });
+
+    proc.on("error", (err) => {
+      reject(err);
+    });
   });
-  const stdout = await new Response(proc.stdout).text();
-  const stderr = await new Response(proc.stderr).text();
-  const exitCode = await proc.exited;
-  return { stdout, stderr, exitCode };
 }
 
 async function createDotTwoBDirs(base: string, categories: string[] = ["system", "concepts", "instructions"]): Promise<void> {
