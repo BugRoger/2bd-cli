@@ -1,0 +1,19 @@
+# .beastmode/config.yaml
+
+cli:
+  dispatch-strategy: iterm2            # sdk | cmux | auto
+
+github:
+  enabled: true               
+  project-name: "2bd-cli"
+
+hitl:
+  timeout: 30
+  design: "always defer to human"
+  plan: "auto-answer all questions, never defer to human"
+  implement: "auto-answer all questions, never defer to human"
+  validate: "auto-answer all questions, never defer to human"
+  release: "auto-answer all questions, never defer to human"
+
+file-permissions:
+  claude-settings: "allow read, write to ./skill ./agent ./hooks"
