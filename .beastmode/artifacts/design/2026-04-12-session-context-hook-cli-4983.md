@@ -1,7 +1,7 @@
 ---
 phase: design
 epic-id: bm-4983
-epic-slug: owned-wyrm-4983
+epic-slug: session-context-hook-cli-4983
 epic-name: Session Context Hook CLI
 ---
 

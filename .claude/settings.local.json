@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=design BEASTMODE_EPIC_ID=bm-4983 BEASTMODE_EPIC_SLUG=owned-wyrm-4983 bunx beastmode hooks hitl-auto design"
+            "command": "BEASTMODE_PHASE=plan BEASTMODE_EPIC_ID=session-context-hook-cli-4983 BEASTMODE_EPIC_SLUG=session-context-hook-cli-4983 bunx beastmode hooks hitl-auto plan"
           }
         ]
       },
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=design BEASTMODE_EPIC_ID=bm-4983 BEASTMODE_EPIC_SLUG=owned-wyrm-4983 bunx beastmode hooks hitl-log design"
+            "command": "BEASTMODE_PHASE=plan BEASTMODE_EPIC_ID=session-context-hook-cli-4983 BEASTMODE_EPIC_SLUG=session-context-hook-cli-4983 bunx beastmode hooks hitl-log plan"
           }
         ]
       },
@@ -48,7 +48,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bunx beastmode hooks hitl-log design"
+            "command": "bunx beastmode hooks hitl-log plan"
           }
         ]
       },
@@ -57,7 +57,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bunx beastmode hooks hitl-log design"
+            "command": "bunx beastmode hooks hitl-log plan"
           }
         ]
       }
@@ -68,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=design BEASTMODE_EPIC_ID=bm-4983 BEASTMODE_EPIC_SLUG=owned-wyrm-4983 bunx beastmode hooks session-stop"
+            "command": "BEASTMODE_PHASE=plan BEASTMODE_EPIC_ID=session-context-hook-cli-4983 BEASTMODE_EPIC_SLUG=session-context-hook-cli-4983 bunx beastmode hooks session-stop"
           }
         ]
       }
@@ -79,7 +79,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=design BEASTMODE_EPIC_ID=bm-4983 BEASTMODE_EPIC_SLUG=owned-wyrm-4983 bunx beastmode hooks session-start"
+            "command": "BEASTMODE_PHASE=plan BEASTMODE_EPIC_ID=session-context-hook-cli-4983 BEASTMODE_EPIC_SLUG=session-context-hook-cli-4983 bunx beastmode hooks session-start"
           }
         ]
       }
