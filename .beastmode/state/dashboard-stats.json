@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "total": 4,
+  "successes": 4,
+  "failures": 0,
+  "reDispatches": 0,
+  "cumulativeMs": 1359059,
+  "phaseDurations": {
+    "plan": {
+      "avgMs": 250074,
+      "count": 1
+    },
+    "implement": {
+      "avgMs": 695606,
+      "count": 1
+    },
+    "validate": {
+      "avgMs": 80470,
+      "count": 1
+    },
+    "release": {
+      "avgMs": 332909,
+      "count": 1
+    }
+  },
+  "completedKeys": [
+    "session-context-hook-cli-4983:plan:",
+    "session-context-hook-cli-4983:implement:context-assembly-cli-4983.1",
+    "session-context-hook-cli-4983:validate:",
+    "session-context-hook-cli-4983:release:"
+  ]
+}
