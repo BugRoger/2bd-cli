@@ -9,7 +9,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=design BEASTMODE_EPIC_ID=bm-b05c BEASTMODE_EPIC_SLUG=runtime-yak-b05c bunx beastmode hooks hitl-auto design"
+            "command": "BEASTMODE_PHASE=plan BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks hitl-auto plan"
           }
         ]
       },
@@ -42,7 +42,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=design BEASTMODE_EPIC_ID=bm-b05c BEASTMODE_EPIC_SLUG=runtime-yak-b05c bunx beastmode hooks hitl-log design"
+            "command": "BEASTMODE_PHASE=plan BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks hitl-log plan"
           }
         ]
       },
@@ -51,7 +51,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bunx beastmode hooks hitl-log design"
+            "command": "bunx beastmode hooks hitl-log plan"
           }
         ]
       },
@@ -60,7 +60,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bunx beastmode hooks hitl-log design"
+            "command": "bunx beastmode hooks hitl-log plan"
           }
         ]
       }
@@ -71,7 +71,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=design BEASTMODE_EPIC_ID=bm-b05c BEASTMODE_EPIC_SLUG=runtime-yak-b05c bunx beastmode hooks session-stop"
+            "command": "BEASTMODE_PHASE=plan BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks session-stop"
           }
         ]
       }
@@ -82,7 +82,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=design BEASTMODE_EPIC_ID=bm-b05c BEASTMODE_EPIC_SLUG=runtime-yak-b05c bunx beastmode hooks session-start"
+            "command": "BEASTMODE_PHASE=plan BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks session-start"
           }
         ]
       }

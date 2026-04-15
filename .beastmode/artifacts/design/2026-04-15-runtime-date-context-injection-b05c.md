@@ -1,7 +1,7 @@
 ---
 phase: design
 epic-id: bm-b05c
-epic-slug: runtime-yak-b05c
+epic-slug: runtime-date-context-injection-b05c
 epic-name: Runtime Date Context Injection
 ---
 
