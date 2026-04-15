@@ -1,9 +1,11 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { formatDateSentence } from "./format-date.js";
 
 const CATEGORIES = ["system", "concepts", "instructions"] as const;
 
-export async function assembleContext(basePath: string): Promise<string> {
+export async function assembleContext(basePath: string, now?: Date): Promise<string> {
+  const dateSentence = formatDateSentence(now);
   const sections: string[] = [];
 
   for (const category of CATEGORIES) {
@@ -22,5 +24,9 @@ export async function assembleContext(basePath: string): Promise<string> {
     }
   }
 
-  return sections.join("\n\n");
+  if (sections.length === 0) {
+    return dateSentence;
+  }
+
+  return dateSentence + "\n\n" + sections.join("\n\n");
 }

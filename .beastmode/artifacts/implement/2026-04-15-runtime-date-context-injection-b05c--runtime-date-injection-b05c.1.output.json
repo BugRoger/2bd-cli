@@ -3,8 +3,8 @@
   "artifacts": {
     "features": [
       {
-        "feature-slug": "context-assembly-cli-4983.1",
-        "feature-name": "Context Assembly CLI",
+        "feature-slug": "runtime-date-injection-b05c.1",
+        "feature-name": "Runtime Date Injection",
         "status": "completed"
       }
     ]

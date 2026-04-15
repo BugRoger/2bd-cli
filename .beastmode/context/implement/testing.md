@@ -16,7 +16,8 @@
 - Direct assertion over snapshots -- output is deterministic
 - Integration tests invoke CLI via Bun.spawn as subprocess
 - No mocking of filesystem -- real temp directories
+- Optional parameter injection for testability -- functions that depend on wall-clock time accept an optional `now?: Date` parameter defaulting to `new Date()`; tests pass a fixed Date for deterministic assertions
 
 ## Coverage
-- 25 tests total: 16 unit + 9 integration
+- 44 tests total: 31 unit + 13 integration
 - No coverage thresholds configured yet

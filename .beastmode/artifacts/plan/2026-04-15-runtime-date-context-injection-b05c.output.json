@@ -1,0 +1,12 @@
+{
+  "status": "completed",
+  "artifacts": {
+    "features": [
+      {
+        "feature-name": "Runtime Date Injection",
+        "plan": "2026-04-15-runtime-date-context-injection-b05c--runtime-date-injection.1.md",
+        "wave": 1
+      }
+    ]
+  }
+}

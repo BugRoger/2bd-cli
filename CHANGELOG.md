@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.0] - 2026-04-15
+
+Adds runtime date context injection — the session-start hook now emits a human-readable "Today's date is ..." sentence, giving Claude accurate temporal awareness without manual configuration.
+
+### Features
+
+- Integrate date sentence into assembled session context output
+- Add date formatting module (`formatDateSentence`) with timezone-aware `Intl.DateTimeFormat` formatting
+
+### Fixes
+
+- Widen timezone regex to accept offset-style abbreviations (e.g., `GMT+2`, `UTC-5`)
+
 ## [0.1.0] - 2026-04-12
 
 First release of `@bugroger/2bd-cli` — a minimal CLI that assembles `.2b/` directory markdown into Claude Code SessionStart hook-compatible JSON.
