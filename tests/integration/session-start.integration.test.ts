@@ -77,6 +77,12 @@ describe("CLI integration: hooks session-start", () => {
     expect(content).toContain("You are a helpful bot.");
     expect(content).toContain("The system uses microservices.");
     expect(content).toContain("Use markdown in responses.");
+
+    // Date sentence precedes all .2b/ section headers
+    expect(content).toMatch(/^Today is /);
+    const dateIdx = content.indexOf("Today is");
+    expect(dateIdx).toBe(0);
+    expect(systemIdx).toBeGreaterThan(dateIdx);
   });
 
   it("sorts files alphabetically within each category", async () => {
@@ -119,7 +125,12 @@ describe("CLI integration: hooks session-start", () => {
     const json = JSON.parse(stdout);
     expect(json.hookSpecificOutput).toBeDefined();
     expect(json.hookSpecificOutput.hookEventName).toBe("SessionStart");
-    expect(json.hookSpecificOutput.additionalContext.trim()).toBe("");
+
+    const content: string = json.hookSpecificOutput.additionalContext;
+    // With date injection, empty categories still produce the date sentence
+    expect(content).toMatch(/^Today is /);
+    // No .2b/ headers should be present
+    expect(content).not.toContain("## .2b/");
   });
 
   it("prefixes each file section with its relative path as a markdown header", async () => {
