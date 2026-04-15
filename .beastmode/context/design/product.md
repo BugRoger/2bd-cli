@@ -10,6 +10,7 @@ Minimal CLI tool for injecting structured project context into Claude Code sessi
 
 ## Core Capabilities
 - Context assembly from `.2b/{system,concepts,instructions}/*.md`
+- Runtime date/time injection (always-on, English, 24-hour clock, system timezone)
 - Hook-compatible JSON output to stdout
 
 ## Differentiators

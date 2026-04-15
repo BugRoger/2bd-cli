@@ -9,7 +9,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=validate BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks hitl-auto validate"
+            "command": "BEASTMODE_PHASE=release BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks hitl-auto release"
           }
         ]
       },
@@ -42,7 +42,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=validate BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks hitl-log validate"
+            "command": "BEASTMODE_PHASE=release BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks hitl-log release"
           }
         ]
       },
@@ -51,7 +51,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bunx beastmode hooks hitl-log validate"
+            "command": "bunx beastmode hooks hitl-log release"
           }
         ]
       },
@@ -60,7 +60,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bunx beastmode hooks hitl-log validate"
+            "command": "bunx beastmode hooks hitl-log release"
           }
         ]
       }
@@ -71,7 +71,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=validate BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks session-stop"
+            "command": "BEASTMODE_PHASE=release BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks session-stop"
           }
         ]
       }
@@ -82,7 +82,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "BEASTMODE_PHASE=validate BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks session-start"
+            "command": "BEASTMODE_PHASE=release BEASTMODE_EPIC_ID=runtime-date-context-injection-b05c BEASTMODE_EPIC_SLUG=runtime-date-context-injection-b05c bunx beastmode hooks session-start"
           }
         ]
       }
