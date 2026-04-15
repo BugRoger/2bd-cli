@@ -44,9 +44,9 @@ async function createDotTwoBDirs(base: string): Promise<void> {
 // Regex matching: Today is Monday, January 01, 2026 at 14:35 CET.
 // Day names: Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday
 // Month names: January|February|March|April|May|June|July|August|September|October|November|December
-// DD: zero-padded two digits, YYYY: four digits, HH:mm: 24-hour, TZ: 1-5 uppercase letters
+// DD: zero-padded two digits, YYYY: four digits, HH:mm: 24-hour, TZ: letter followed by letters, digits, +, or -
 const DATE_SENTENCE_REGEX =
-  /^Today is (Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday), (January|February|March|April|May|June|July|August|September|October|November|December) \d{2}, \d{4} at ([01]\d|2[0-3]):\d{2} [A-Z]{1,5}\.$/;
+  /^Today is (Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday), (January|February|March|April|May|June|July|August|September|October|November|December) \d{2}, \d{4} at ([01]\d|2[0-3]):\d{2} [A-Z][A-Z0-9+\-]*\.$/;
 
 describe("Runtime date context injection (integration)", () => {
   let tmpDir: string;
@@ -96,8 +96,8 @@ describe("Runtime date context injection (integration)", () => {
     expect(firstLine).toMatch(/\b\d{4}\b/);
     // 24-hour time HH:mm
     expect(firstLine).toMatch(/at ([01]\d|2[0-3]):\d{2}/);
-    // Timezone abbreviation (1-5 uppercase letters before the period)
-    expect(firstLine).toMatch(/[A-Z]{1,5}\.$/);
+    // Timezone abbreviation (letter followed by letters, digits, +, or - before the period)
+    expect(firstLine).toMatch(/[A-Z][A-Z0-9+\-]*\.$/);
 
     // Full format match
     expect(firstLine).toMatch(DATE_SENTENCE_REGEX);
