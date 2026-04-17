@@ -1,0 +1,12 @@
+{
+  "status": "completed",
+  "artifacts": {
+    "features": [
+      {
+        "feature-slug": "moc-discovery-and-assembly-0ccc.1",
+        "feature-name": "MOC Discovery and Assembly",
+        "status": "completed"
+      }
+    ]
+  }
+}
