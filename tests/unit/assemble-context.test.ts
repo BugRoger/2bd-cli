@@ -136,4 +136,83 @@ describe("assembleContext", () => {
     const afterDate = result.slice(dateLineEnd);
     expect(afterDate.startsWith("\n\n## .2b/")).toBe(true);
   });
+
+  it("includes MOC content after .2b/ category content", async () => {
+    await writeFile(join(tmpDir, ".2b/system/persona.md"), "System content.");
+
+    await mkdir(join(tmpDir, "10 Projects"), { recursive: true });
+    await writeFile(
+      join(tmpDir, "10 Projects", "overview.md"),
+      "---\ntype: moc\n---\n\nProject overview body."
+    );
+
+    const result = await assembleContext(tmpDir, FIXED_NOW);
+
+    const systemIdx = result.indexOf("## .2b/system/persona.md");
+    const mocIdx = result.indexOf("## 10 Projects/overview.md");
+
+    expect(systemIdx).toBeGreaterThanOrEqual(0);
+    expect(mocIdx).toBeGreaterThan(systemIdx);
+    expect(result).toContain("Project overview body.");
+  });
+
+  it("strips frontmatter from MOC file content in assembled output", async () => {
+    await mkdir(join(tmpDir, "10 Projects"), { recursive: true });
+    await writeFile(
+      join(tmpDir, "10 Projects", "overview.md"),
+      "---\ntype: moc\ntitle: Projects\n---\n\nProject overview body."
+    );
+
+    const result = await assembleContext(tmpDir, FIXED_NOW);
+
+    expect(result).toContain("## 10 Projects/overview.md");
+    expect(result).toContain("Project overview body.");
+    expect(result).not.toContain("type: moc");
+    expect(result).not.toContain("title: Projects");
+  });
+
+  it("leaves output unchanged when no MOC files exist", async () => {
+    await writeFile(join(tmpDir, ".2b/system/persona.md"), "System content.");
+
+    const result = await assembleContext(tmpDir, FIXED_NOW);
+
+    expect(result).toContain("## .2b/system/persona.md");
+    expect(result).toContain("System content.");
+    // No MOC headers should appear
+    const lines = result.split("\n");
+    const mocHeaders = lines.filter((l) => l.startsWith("## ") && !l.startsWith("## .2b/"));
+    expect(mocHeaders).toHaveLength(0);
+  });
+
+  it("leaves output unchanged when numbered dirs exist but contain no MOC files", async () => {
+    await writeFile(join(tmpDir, ".2b/system/persona.md"), "System content.");
+
+    await mkdir(join(tmpDir, "10 Projects"), { recursive: true });
+    await writeFile(
+      join(tmpDir, "10 Projects", "note.md"),
+      "---\ntype: note\n---\n\nRegular note."
+    );
+
+    const result = await assembleContext(tmpDir, FIXED_NOW);
+
+    expect(result).toContain("## .2b/system/persona.md");
+    const lines = result.split("\n");
+    const mocHeaders = lines.filter((l) => l.startsWith("## ") && !l.startsWith("## .2b/"));
+    expect(mocHeaders).toHaveLength(0);
+  });
+
+  it("MOC sections use ## relative/path header format", async () => {
+    await mkdir(join(tmpDir, "10 Projects", "sub"), { recursive: true });
+    await writeFile(
+      join(tmpDir, "10 Projects", "sub", "nested.md"),
+      "---\ntype: moc\n---\n\nNested body."
+    );
+
+    const result = await assembleContext(tmpDir, FIXED_NOW);
+
+    expect(result).toContain("## 10 Projects/sub/nested.md");
+    const headerIdx = result.indexOf("## 10 Projects/sub/nested.md");
+    const afterHeader = result.slice(headerIdx + "## 10 Projects/sub/nested.md".length).trimStart();
+    expect(afterHeader.startsWith("Nested body.")).toBe(true);
+  });
 });
