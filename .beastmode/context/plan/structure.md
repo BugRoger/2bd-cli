@@ -9,17 +9,20 @@ src/
   lib/
     validate-dirs.ts              # Pure library modules
     assemble-context.ts
+    discover-mocs.ts              # MOC discovery from numbered Obsidian-style dirs
     hook-output.ts
     format-date.ts                # Date sentence formatting (Intl.DateTimeFormat)
 tests/
   unit/
     validate-dirs.test.ts
     assemble-context.test.ts
+    discover-mocs.test.ts
     hook-output.test.ts
     format-date.test.ts
   integration/
     session-start.integration.test.ts
     runtime-date-injection.integration.test.ts
+    moc-discovery-and-assembly.integration.test.ts
 ```
 
 ## Key Directories

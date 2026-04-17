@@ -19,5 +19,5 @@
 - Optional parameter injection for testability -- functions that depend on wall-clock time accept an optional `now?: Date` parameter defaulting to `new Date()`; tests pass a fixed Date for deterministic assertions
 
 ## Coverage
-- 44 tests total: 31 unit + 13 integration
+- 80 tests total: 52 unit + 28 integration (8 test files)
 - No coverage thresholds configured yet
