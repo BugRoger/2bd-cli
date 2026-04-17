@@ -1,7 +1,7 @@
 ---
 phase: design
 epic-id: bm-0ccc
-epic-slug: sharded-zilch-0ccc
+epic-slug: moc-context-assembly-0ccc
 epic-name: MOC Context Assembly
 ---
 
