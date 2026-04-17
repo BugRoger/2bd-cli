@@ -1,6 +1,6 @@
 {
   "name": "@bugroger/2bd-cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Developer tooling CLI for structured context management",
   "type": "module",
   "bin": {
@@ -23,7 +23,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "commander": "^13.1.0"
+    "commander": "^13.1.0",
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "vitest": "^3.1.1",

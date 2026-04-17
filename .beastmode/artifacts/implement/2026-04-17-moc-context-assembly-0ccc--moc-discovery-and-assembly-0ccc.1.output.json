@@ -3,8 +3,8 @@
   "artifacts": {
     "features": [
       {
-        "feature-slug": "runtime-date-injection-b05c.1",
-        "feature-name": "Runtime Date Injection",
+        "feature-slug": "moc-discovery-and-assembly-0ccc.1",
+        "feature-name": "MOC Discovery and Assembly",
         "status": "completed"
       }
     ]

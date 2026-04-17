@@ -26,12 +26,75 @@
       "parent": "bm-4983",
       "name": "Context Assembly CLI",
       "slug": "context-assembly-cli-4983.1",
-      "description": "### Project Scaffolding\n\nSet up the npm package with Bun + TypeScript. Configure `package.json` with the `@bugroger/2bd-cli` name, `bin.2bd` entry pointing to the CLI entry point, and `commander` as the sole production dependency. Configure TypeScript in strict mode, ESM-only, targeting esnext. Add vitest as the dev dependency for testing.\n\n### CLI Entry Point\n\nCreate a CLI entry point that uses commander to register the extensible `<command> <subcommand>` pattern. Register `hooks` as a command group and `session-start` as its subcommand. The entry point delegates to the context assembly module when `hooks session-start` is invoked.\n\n### Directory Validation Module\n\nA module that validates the `.2b/` directory structure exists in the current working directory. It checks for the presence of `.2b/` and its three required subdirectories: `system/`, `concepts/`, `instructions/`. On any missing directory, it writes a descriptive error message to stderr and exits with a non-zero code. The error message must identify which specific directory is missing.\n\n### Context Assembly Module\n\nThe core module that:\n\n1. Walks each category directory in fixed order: system → concepts → instructions\n2. Within each category, discovers direct child `.md` files only (no recursion, no non-markdown files)\n3. Sorts discovered files alphabetically within each category\n4. For each file, reads its contents and prepends a `## <relative-path>` header (e.g., `## .2b/system/persona.md`)\n5. Concatenates all sections into a single markdown string\n6. Wraps the result in the Claude Code hook JSON contract:\n   ```json\n   {\n     \"hookSpecificOutput\": {\n       \"hookEventName\": \"SessionStart\",\n       \"additionalContext\": \"<concatenated markdown>\"\n     }\n   }\n   ```\n7. Writes the JSON to stdout\n\nEmpty categories are valid — they contribute no sections. If all categories are empty, the output JSON has an empty `additionalContext` string.\n\n### Test Suite\n\nUnit tests for the context assembly module: verify file discovery, alphabetical sorting, category ordering, markdown header prefixing, JSON output structure, non-markdown file filtering, and empty directory handling.\n\nIntegration tests: invoke the CLI binary as a subprocess against temporary `.2b/` directory structures. Assert exit codes, stdout JSON, and stderr error messages for both happy paths and error cases (missing `.2b/`, missing subdirectories).",
       "status": "completed",
       "depends_on": [],
       "created_at": "2026-04-12T19:31:21.160Z",
       "updated_at": "2026-04-12T19:43:10.960Z",
       "plan": "2026-04-12-session-context-hook-cli-4983--context-assembly-cli.1.md",
+      "wave": 1
+    },
+    "bm-b05c": {
+      "id": "bm-b05c",
+      "type": "epic",
+      "name": "Runtime Date Context Injection",
+      "slug": "runtime-date-context-injection-b05c",
+      "status": "done",
+      "depends_on": [],
+      "created_at": "2026-04-15T00:00:00.000Z",
+      "updated_at": "2026-04-15T00:00:00.000Z",
+      "worktree": {
+        "branch": "feature/runtime-date-context-injection-b05c",
+        "path": "/Users/D038720/Code/github.com/bugroger/2bd-cli/.claude/worktrees/runtime-date-context-injection-b05c"
+      },
+      "summary": {
+        "problem": "Claude Code sessions had no temporal awareness \u2014 the LLM couldn't know the current date without the user stating it.",
+        "solution": "Add a formatDateSentence module that emits a timezone-aware 'Today is ...' sentence as the first line of assembled context, giving Claude accurate date awareness automatically."
+      },
+      "design": "2026-04-15-runtime-date-context-injection-b05c.md"
+    },
+    "bm-b05c.1": {
+      "id": "bm-b05c.1",
+      "type": "feature",
+      "parent": "bm-b05c",
+      "name": "Runtime Date Injection",
+      "slug": "runtime-date-injection-b05c.1",
+      "status": "completed",
+      "depends_on": [],
+      "created_at": "2026-04-15T00:00:00.000Z",
+      "updated_at": "2026-04-15T00:00:00.000Z",
+      "plan": "2026-04-15-runtime-date-context-injection-b05c--runtime-date-injection.1.md",
+      "wave": 1
+    },
+    "bm-0ccc": {
+      "id": "bm-0ccc",
+      "type": "epic",
+      "name": "MOC Context Assembly",
+      "slug": "moc-context-assembly-0ccc",
+      "status": "validate",
+      "depends_on": [],
+      "created_at": "2026-04-17T00:00:00.000Z",
+      "updated_at": "2026-04-17T00:00:00.000Z",
+      "worktree": {
+        "branch": "feature/moc-context-assembly-0ccc",
+        "path": "/Users/D038720/Code/github.com/bugroger/2bd-cli/.claude/worktrees/moc-context-assembly-0ccc"
+      },
+      "summary": {
+        "problem": "Claude Code session context only includes files from the fixed .2b/{system,concepts,instructions}/ category structure. Users with Obsidian-style vaults have MOC files in numbered top-level folders that are invisible to the session-start hook.",
+        "solution": "Extend the session-start hook to recursively scan top-level directories matching /^\\d{2} / for markdown files with type: moc YAML frontmatter. Discovered MOC contents (frontmatter stripped) are appended after existing .2b/ output, sorted by numeric prefix on full relative path."
+      },
+      "design": "2026-04-17-moc-context-assembly-0ccc.md"
+    },
+    "bm-0ccc.1": {
+      "id": "bm-0ccc.1",
+      "type": "feature",
+      "parent": "bm-0ccc",
+      "name": "MOC Discovery and Assembly",
+      "slug": "moc-discovery-and-assembly-0ccc.1",
+      "status": "completed",
+      "depends_on": [],
+      "created_at": "2026-04-17T00:00:00.000Z",
+      "updated_at": "2026-04-17T00:00:00.000Z",
+      "plan": "2026-04-17-moc-context-assembly-0ccc--moc-discovery-and-assembly.1.md",
       "wave": 1
     }
   }

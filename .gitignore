@@ -1,4 +1,6 @@
 .claude/settings.local.json
+.claude/worktrees/
+.beastmode/.beastmode-watch.lock
 2bd-cli.code-workspace
 node_modules/
 dist/

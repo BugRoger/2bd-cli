@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.0] - 2026-04-17
+
+Extends session-start hook context assembly with automatic MOC (Map of Content) discovery. Numbered top-level directories matching `/^\d{2} /` are scanned recursively for markdown files with `type: moc` YAML frontmatter, and their contents are appended to the assembled context output.
+
+### Features
+
+- Add MOC discovery module with recursive directory scanning, symlink safety, and `Intl.Collator` natural sort
+- Integrate MOC sections into context assembly pipeline after `.2b/` category content
+
 ## [0.2.0] - 2026-04-15
 
 Adds runtime date context injection — the session-start hook now emits a human-readable "Today's date is ..." sentence, giving Claude accurate temporal awareness without manual configuration.
