@@ -6,5 +6,13 @@
   "bm-4983.1": {
     "issue": 2,
     "bodyHash": "4e4fd1ce9a21929fcafde0e8869245a4d638420e1e8b2e2d0f4eccf2a76f4c3f"
+  },
+  "bm-0ccc": {
+    "issue": 10,
+    "bodyHash": "4a31864037d32677f4aacbef0b0604a2377a99fe571d33f0af411ea9f7a01805"
+  },
+  "bm-0ccc.1": {
+    "issue": 11,
+    "bodyHash": "7a71de62c0ab20d306cfc40ce3a4a9c8f9d2db5f792ca3cd7bd50ca49504771e"
   }
 }

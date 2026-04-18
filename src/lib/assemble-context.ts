@@ -1,9 +1,8 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { formatDateSentence } from "./format-date.js";
-import { discoverMocs } from "./discover-mocs.js";
 
-const CATEGORIES = ["system", "concepts", "instructions"] as const;
+const CATEGORIES = ["system"] as const;
 
 export async function assembleContext(basePath: string, now?: Date): Promise<string> {
   const dateSentence = formatDateSentence(now);
@@ -23,11 +22,6 @@ export async function assembleContext(basePath: string, now?: Date): Promise<str
       const relativePath = `.2b/${category}/${file}`;
       sections.push(`## ${relativePath}\n\n${content}`);
     }
-  }
-
-  const mocRecords = await discoverMocs(basePath);
-  for (const moc of mocRecords) {
-    sections.push(`## ${moc.relativePath}\n\n${moc.body}`);
   }
 
   if (sections.length === 0) {

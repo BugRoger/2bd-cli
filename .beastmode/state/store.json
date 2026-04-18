@@ -47,7 +47,7 @@
         "path": "/Users/D038720/Code/github.com/bugroger/2bd-cli/.claude/worktrees/runtime-date-context-injection-b05c"
       },
       "summary": {
-        "problem": "Claude Code sessions had no temporal awareness \u2014 the LLM couldn't know the current date without the user stating it.",
+        "problem": "Claude Code sessions had no temporal awareness — the LLM couldn't know the current date without the user stating it.",
         "solution": "Add a formatDateSentence module that emits a timezone-aware 'Today is ...' sentence as the first line of assembled context, giving Claude accurate date awareness automatically."
       },
       "design": "2026-04-15-runtime-date-context-injection-b05c.md"
@@ -70,10 +70,10 @@
       "type": "epic",
       "name": "MOC Context Assembly",
       "slug": "moc-context-assembly-0ccc",
-      "status": "validate",
+      "status": "done",
       "depends_on": [],
       "created_at": "2026-04-17T00:00:00.000Z",
-      "updated_at": "2026-04-17T00:00:00.000Z",
+      "updated_at": "2026-04-17T20:17:15.530Z",
       "worktree": {
         "branch": "feature/moc-context-assembly-0ccc",
         "path": "/Users/D038720/Code/github.com/bugroger/2bd-cli/.claude/worktrees/moc-context-assembly-0ccc"

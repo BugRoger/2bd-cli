@@ -1,32 +1,40 @@
 {
   "schemaVersion": 1,
-  "total": 4,
-  "successes": 4,
-  "failures": 0,
-  "reDispatches": 0,
-  "cumulativeMs": 1359059,
+  "total": 14,
+  "successes": 13,
+  "failures": 1,
+  "reDispatches": 2,
+  "cumulativeMs": 8275175,
   "phaseDurations": {
     "plan": {
-      "avgMs": 250074,
-      "count": 1
+      "avgMs": 245314.66666666666,
+      "count": 3
     },
     "implement": {
-      "avgMs": 695606,
-      "count": 1
+      "avgMs": 715385.5,
+      "count": 4
     },
     "validate": {
-      "avgMs": 80470,
-      "count": 1
+      "avgMs": 940543.25,
+      "count": 4
     },
     "release": {
-      "avgMs": 332909,
-      "count": 1
+      "avgMs": 305172,
+      "count": 3
     }
   },
   "completedKeys": [
     "session-context-hook-cli-4983:plan:",
     "session-context-hook-cli-4983:implement:context-assembly-cli-4983.1",
     "session-context-hook-cli-4983:validate:",
-    "session-context-hook-cli-4983:release:"
+    "session-context-hook-cli-4983:release:",
+    "runtime-date-context-injection-b05c:plan:",
+    "runtime-date-context-injection-b05c:implement:runtime-date-injection-b05c.1",
+    "runtime-date-context-injection-b05c:validate:",
+    "runtime-date-context-injection-b05c:release:",
+    "moc-context-assembly-0ccc:plan:",
+    "moc-context-assembly-0ccc:implement:moc-discovery-and-assembly-0ccc.1",
+    "moc-context-assembly-0ccc:validate:",
+    "moc-context-assembly-0ccc:release:"
   ]
 }
