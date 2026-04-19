@@ -1,6 +1,6 @@
 {
   "name": "@bugroger/2bd-cli",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Developer tooling CLI for structured context management",
   "type": "module",
   "bin": {
