@@ -102,11 +102,14 @@ describe("CLI integration: query command -- validation", () => {
       "---\ntype: moc\n---\n\n# Overview\n"
     );
 
-    // Override PATH to exclude claude
+    // Build a PATH that includes bun but not claude (~/.local/bin)
+    const pathDirs = (process.env.PATH ?? "").split(":").filter(
+      (d) => !d.includes(".local/bin")
+    );
     const { stderr, exitCode } = await runCli(
       ["query", "any question"],
       tmpDir,
-      { env: { PATH: tmpDir } }
+      { env: { PATH: pathDirs.join(":") } }
     );
     expect(exitCode).not.toBe(0);
     expect(stderr).toMatch(/claude/i);
@@ -155,7 +158,13 @@ describe("CLI integration: query command -- query output", { timeout: 120_000 },
     );
     expect(exitCode).toBe(0);
     expect(stdout.trim().length).toBeGreaterThan(0);
-    expect(stderr).toBe("");
+    // stderr may contain a benign "no stdin data" warning from claude -p
+    const meaningfulStderr = stderr
+      .split("\n")
+      .filter((line) => !line.startsWith("Warning: no stdin data"))
+      .join("\n")
+      .trim();
+    expect(meaningfulStderr).toBe("");
   });
 
   it("query output includes Obsidian wikilink citations", async () => {
