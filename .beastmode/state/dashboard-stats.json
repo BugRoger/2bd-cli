@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "total": 17,
-  "successes": 16,
+  "total": 18,
+  "successes": 17,
   "failures": 1,
   "reDispatches": 2,
-  "cumulativeMs": 9982387,
+  "cumulativeMs": 10671485,
   "phaseDurations": {
     "plan": {
       "avgMs": 254626.5,
@@ -19,8 +19,8 @@
       "count": 5
     },
     "release": {
-      "avgMs": 305172,
-      "count": 3
+      "avgMs": 401153.5,
+      "count": 4
     }
   },
   "completedKeys": [
@@ -38,6 +38,7 @@
     "moc-context-assembly-0ccc:release:",
     "vault-query-command-8ca0:plan:",
     "vault-query-command-8ca0:implement:vault-query-command-8ca0.1",
-    "vault-query-command-8ca0:validate:"
+    "vault-query-command-8ca0:validate:",
+    "vault-query-command-8ca0:release:"
   ]
 }

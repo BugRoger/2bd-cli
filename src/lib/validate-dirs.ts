@@ -1,7 +1,7 @@
 import { stat } from "node:fs/promises";
 import { join } from "node:path";
 
-const REQUIRED_SUBDIRS = ["system", "concepts", "instructions"] as const;
+const REQUIRED_SUBDIRS = ["system"] as const;
 
 export async function validateDirs(basePath: string): Promise<string | null> {
   const dotTwoBPath = join(basePath, ".2b");
