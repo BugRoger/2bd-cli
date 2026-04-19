@@ -3,8 +3,8 @@
   "artifacts": {
     "features": [
       {
-        "feature-slug": "moc-discovery-and-assembly-0ccc.1",
-        "feature-name": "MOC Discovery and Assembly",
+        "feature-slug": "vault-query-command-8ca0.1",
+        "feature-name": "Vault Query Command",
         "status": "completed"
       }
     ]

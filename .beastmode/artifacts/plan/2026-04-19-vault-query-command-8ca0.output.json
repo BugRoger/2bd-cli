@@ -1,0 +1,12 @@
+{
+  "status": "completed",
+  "artifacts": {
+    "features": [
+      {
+        "feature-name": "Vault Query Command",
+        "plan": "2026-04-19-vault-query-command-8ca0--vault-query-command.1.md",
+        "wave": 1
+      }
+    ]
+  }
+}

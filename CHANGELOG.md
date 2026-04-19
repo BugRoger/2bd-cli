@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.0] - 2026-04-19
+
+Adds a top-level `2bd query` command for natural-language vault querying. The command uses index-guided retrieval via `claude -p` subprocess, embedding MOC content in the prompt and returning a cited summary with Obsidian wikilink citations. Supports `--file-back` to write results as vault notes with YAML frontmatter.
+
+### Features
+
+- Add query command module with prompt assembly, tool list construction, and prerequisite validation
+- Register `query` as top-level CLI command with `<question>` argument and `--file-back <path>` option
+- Integration tests for vault query covering output structure, file-back, and validation scenarios
+
+### Fixes
+
+- Restore MOC discovery in context assembly after regression from commit `9d0e3a9`
+
 ## [0.3.0] - 2026-04-17
 
 Extends session-start hook context assembly with automatic MOC (Map of Content) discovery. Numbered top-level directories matching `/^\d{2} /` are scanned recursively for markdown files with `type: moc` YAML frontmatter, and their contents are appended to the assembled context output.
