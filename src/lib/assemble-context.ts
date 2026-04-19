@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { formatDateSentence } from "./format-date.js";
 import { discoverMocs } from "./discover-mocs.js";
 
-const CATEGORIES = ["system", "concepts", "instructions"] as const;
+const CATEGORIES = ["system"] as const;
 
 export async function assembleContext(basePath: string, now?: Date): Promise<string> {
   const dateSentence = formatDateSentence(now);
