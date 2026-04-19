@@ -96,6 +96,39 @@
       "updated_at": "2026-04-17T00:00:00.000Z",
       "plan": "2026-04-17-moc-context-assembly-0ccc--moc-discovery-and-assembly.1.md",
       "wave": 1
+    },
+    "bm-8ca0": {
+      "id": "bm-8ca0",
+      "type": "epic",
+      "name": "Vault Query Command",
+      "slug": "vault-query-command-8ca0",
+      "status": "release",
+      "depends_on": [],
+      "created_at": "2026-04-19T13:57:45.030Z",
+      "updated_at": "2026-04-19T15:20:26.744Z",
+      "worktree": {
+        "branch": "feature/vault-query-command-8ca0",
+        "path": "/Users/D038720/Code/github.com/bugroger/2bd-cli/.claude/worktrees/vault-query-command-8ca0"
+      },
+      "summary": {
+        "problem": "There is no way to query the Obsidian vault from the CLI. Finding information requires manually browsing MOC files and individual notes. Users need a command that accepts a natural-language question, searches the vault intelligently, and returns a cited summary — optionally filing the result back as a vault note.",
+        "solution": "A top-level `2bd query` command that uses index-guided retrieval. The CLI reads all MOC files from the vault, embeds them in a prompt, and spawns `claude -p` as an agentic subprocess with Read/Glob/Grep tool access. Claude examines the MOCs, reads relevant vault documents via its tools, and synthesizes an answer with Obsidian-style wikilink citations. The result prints to stdout by default, or writes to a vault note file when `--file-back` is specified."
+      },
+      "design": "2026-04-19-vault-query-command-8ca0.md"
+    },
+    "bm-8ca0.1": {
+      "id": "bm-8ca0.1",
+      "type": "feature",
+      "parent": "bm-8ca0",
+      "name": "Vault Query Command",
+      "slug": "vault-query-command-8ca0.1",
+      "description": "**Architectural Decisions (cross-cutting constraints):**\n\n| Decision | Choice |\n|----------|--------|\n| Command shape | Top-level `program.command(\"query\")`, not nested under a group |\n| LLM integration | Spawn `claude -p` subprocess via `Bun.spawn` — no Anthropic SDK dependency |\n| Tool access | `--allowedTools \"Read,Glob,Grep\"` by default; add `Write,Edit` when `--file-back` is specified |\n| Prompt structure | System prompt via `--append-system-prompt`; main prompt contains embedded MOC content + user query |\n| Vault resolution | cwd-based `.2b/` detection, same pattern as session-start |\n| Output contract | Raw markdown to stdout, no decorative output, pipe-friendly |\n| Citation format | Obsidian wikilinks `[[path/to/document]]` without `.md` extension |\n\n**New command module — query action:** An async action function that implements the full query pipeline:\n\n1. **Validation:** Check three prerequisites in order: (a) `.2b/` directory exists at cwd, (b) `claude` CLI is resolvable on PATH (use `Bun.which` or equivalent), (c) at least one MOC file is discovered via the existing `discoverMocs` module. On any failure, write a descriptive error to stderr and exit 1. No subprocess is spawned if validation fails.\n\n2. **Prompt assembly:** Build two prompt components:\n   - **System prompt:** Instructions for Claude on citation format (wikilinks without `.md`), vault conventions, and output structure (clean markdown, no decorative output). When `--file-back` is specified, additional instructions for writing the result as a vault note with YAML frontmatter (title, type, tags, created, updated fields).\n   - **Main prompt:** Embed all discovered MOC content (relative path + body, same format as `assembleContext` uses) followed by the user's query string.\n\n3. **Subprocess invocation:** Spawn `claude -p \"<main-prompt>\" --append-system-prompt \"<system-prompt>\" --allowedTools \"<tool-list>\"` via `Bun.spawn` with cwd set to the vault root (the directory containing `.2b/`). The tool list is `Read,Glob,Grep` by default, extended with `Write,Edit` when `--file-back` is specified. When `--file-back` is present, the prompt instructs Claude to write the result to the specified path (resolved relative to vault root) instead of returning it as output.\n\n4. **Output handling:** Capture stdout from the subprocess and write it directly to the CLI's stdout. No post-processing, no decoration. When `--file-back` is specified, Claude writes the file itself via its Write tool — the CLI does not write the file. Stdout may be empty or minimal in file-back mode.\n\n5. **Error propagation:** If the subprocess exits non-zero, propagate the exit code. Write any subprocess stderr content to the CLI's stderr.\n\n**Command registration:** Register `query` as a top-level command on the Commander program with a required `<question>` argument and an optional `--file-back <path>` option. Follow the existing pattern in `cli.ts`.\n\n**Unit tests for the new module:**\n- Prompt assembly: verify MOC content embedding, system prompt content, query inclusion\n- Argument parsing: verify question extraction, --file-back path resolution\n- Tool list construction: verify read-only set vs. read-write set based on --file-back presence\n- Validation logic: verify each prerequisite check produces the correct error message\n\n**Integration tests:** Implement the 10 Gherkin scenarios from the integration artifact as Vitest integration tests following the existing `runCli` + temp directory pattern. LLM output is non-deterministic — tests verify structural properties (exit code, file existence, frontmatter validity, wikilink pattern presence) not exact content.",
+      "status": "completed",
+      "depends_on": [],
+      "created_at": "2026-04-19T14:42:34.422Z",
+      "updated_at": "2026-04-19T15:09:50.297Z",
+      "plan": "2026-04-19-vault-query-command-8ca0--vault-query-command.1.md",
+      "wave": 1
     }
   }
 }

@@ -14,5 +14,13 @@
   "bm-0ccc.1": {
     "issue": 11,
     "bodyHash": "7a71de62c0ab20d306cfc40ce3a4a9c8f9d2db5f792ca3cd7bd50ca49504771e"
+  },
+  "bm-8ca0": {
+    "issue": 13,
+    "bodyHash": "e432acdcde450ad4c2065746a62731ac9def83ea61215cf4f61cede7a37b62cd"
+  },
+  "bm-8ca0.1": {
+    "issue": 14,
+    "bodyHash": "94b2687d64431d0e7e9d39cea9dc6b28d24ebedf2c22f2155b5f6dbfd1215e29"
   }
 }

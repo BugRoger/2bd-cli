@@ -1,22 +1,22 @@
 {
   "schemaVersion": 1,
-  "total": 14,
-  "successes": 13,
+  "total": 17,
+  "successes": 16,
   "failures": 1,
   "reDispatches": 2,
-  "cumulativeMs": 8275175,
+  "cumulativeMs": 9982387,
   "phaseDurations": {
     "plan": {
-      "avgMs": 245314.66666666666,
-      "count": 3
+      "avgMs": 254626.5,
+      "count": 4
     },
     "implement": {
-      "avgMs": 715385.5,
-      "count": 4
+      "avgMs": 735309,
+      "count": 5
     },
     "validate": {
-      "avgMs": 940543.25,
-      "count": 4
+      "avgMs": 874364,
+      "count": 5
     },
     "release": {
       "avgMs": 305172,
@@ -35,6 +35,9 @@
     "moc-context-assembly-0ccc:plan:",
     "moc-context-assembly-0ccc:implement:moc-discovery-and-assembly-0ccc.1",
     "moc-context-assembly-0ccc:validate:",
-    "moc-context-assembly-0ccc:release:"
+    "moc-context-assembly-0ccc:release:",
+    "vault-query-command-8ca0:plan:",
+    "vault-query-command-8ca0:implement:vault-query-command-8ca0.1",
+    "vault-query-command-8ca0:validate:"
   ]
 }

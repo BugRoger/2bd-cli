@@ -54,6 +54,17 @@ export async function validateQueryPrereqs(
 export function buildSystemPrompt(fileBack?: string): string {
   let prompt = `You are a vault research assistant. Your job is to answer the user's question by reading documents from their Obsidian vault.
 
+## How to answer
+
+MOCs form a tree hierarchy ordered by modification time (newest first). Top-level MOCs link to sub-MOCs, which link to leaf notes containing the actual content.
+
+1. Scan the top-level MOCs below for branches relevant to the question
+2. Drill down through sub-MOCs to identify 3–10 leaf notes that are most relevant
+3. Read those leaf notes carefully using the Read tool
+4. Synthesize a clear, thorough answer from what you read
+5. Cite your sources inline using [[wikilinks]] (e.g., [[10 Projects/kvm-go-live]])
+6. If the vault doesn't contain relevant information, say so honestly
+
 ## Citation format
 
 - Use Obsidian wikilink syntax for citations: [[path/to/document]]
