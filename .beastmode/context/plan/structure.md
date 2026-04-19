@@ -4,6 +4,8 @@
 ```
 src/
   cli.ts                          # CLI entry point (commander)
+  commands/
+    query.ts                      # Top-level command orchestrators (LLM subprocess)
   hooks/
     session-start.ts              # Per-hook orchestrator
   lib/
@@ -19,13 +21,16 @@ tests/
     discover-mocs.test.ts
     hook-output.test.ts
     format-date.test.ts
+    query.test.ts
   integration/
     session-start.integration.test.ts
     runtime-date-injection.integration.test.ts
     moc-discovery-and-assembly.integration.test.ts
+    query.integration.test.ts
 ```
 
 ## Key Directories
+- `src/commands/` -- top-level command orchestrators (e.g., query command with LLM subprocess)
 - `src/hooks/` -- one file per hook subcommand (orchestrators)
 - `src/lib/` -- pure library modules (no side effects except fs reads)
 - `tests/unit/` -- unit tests per library module
@@ -36,5 +41,6 @@ tests/
 - CLI entry: `src/cli.ts`
 
 ## Where to Add New Code
+- New top-level command: add `src/commands/<command-name>.ts` orchestrator, register in `src/cli.ts`
 - New hook type: add `src/hooks/<hook-name>.ts` orchestrator, register in `src/cli.ts`
 - New library module: add to `src/lib/`, unit test in `tests/unit/`

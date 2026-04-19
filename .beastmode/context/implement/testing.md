@@ -17,7 +17,10 @@
 - Integration tests invoke CLI via Bun.spawn as subprocess
 - No mocking of filesystem -- real temp directories
 - Optional parameter injection for testability -- functions that depend on wall-clock time accept an optional `now?: Date` parameter defaulting to `new Date()`; tests pass a fixed Date for deterministic assertions
+- Dependency injection for external tool checks -- functions that validate external CLI availability accept an optional `whichFn` parameter; tests pass a stub returning null to simulate missing tools without modifying the real PATH
+- LLM-dependent integration tests verify structural properties (exit code, file existence, YAML frontmatter validity, wikilink pattern presence) not exact content, because LLM output is non-deterministic
+- LLM integration tests require extended timeout (120s) due to subprocess spawning and API calls
 
 ## Coverage
-- 80 tests total: 52 unit + 28 integration (8 test files)
+- 110 tests total: 72 unit + 38 integration (10 test files)
 - No coverage thresholds configured yet

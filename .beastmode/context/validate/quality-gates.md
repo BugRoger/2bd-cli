@@ -1,13 +1,14 @@
 # Quality Gates
 
 ## Required Checks
-[Populated by init or retro]
+- Full test suite (all unit + all integration tests) -- not just tests for the current feature
+- Pre-existing regressions from commits between the last release and the current branch fork point MUST be caught and repaired before the feature passes validation
 
 ## Coverage Thresholds
-[Populated by init or retro]
+- No coverage thresholds configured yet
 
 ## Custom Gates
-[Populated by init or retro]
+None configured
 
 ## Manual Verification
-[Populated by init or retro]
+- Validation repair log MUST document any pre-existing regressions found and fixed, including the offending commit hash and the restoration approach
