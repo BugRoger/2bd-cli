@@ -1,7 +1,7 @@
 ---
 phase: design
 epic-id: bm-8ca0
-epic-slug: parsed-xenon-8ca0
+epic-slug: vault-query-command-8ca0
 epic-name: Vault Query Command
 ---
 
