@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 import { Command } from "commander";
 import { sessionStartAction } from "./hooks/session-start.js";
+import { stopAction } from "./hooks/stop.js";
 import { queryAction } from "./commands/query.js";
 
 const program = new Command();
@@ -17,6 +18,11 @@ hooks
   .command("session-start")
   .description("Assemble .2b/ context and output hook-compatible JSON")
   .action(sessionStartAction);
+
+hooks
+  .command("stop")
+  .description("Capture session turns to daily JSONL log")
+  .action(stopAction);
 
 program
   .command("query")
