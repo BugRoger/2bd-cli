@@ -1,0 +1,12 @@
+{
+  "status": "completed",
+  "artifacts": {
+    "features": [
+      {
+        "feature-slug": "session-end-finalize-f8ce.1",
+        "feature-name": "Session End Finalize",
+        "status": "completed"
+      }
+    ]
+  }
+}

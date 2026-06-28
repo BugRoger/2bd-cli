@@ -1,0 +1,17 @@
+{
+  "status": "completed",
+  "artifacts": {
+    "features": [
+      {
+        "feature-name": "Session End Finalize",
+        "plan": "2026-06-28-session-end-memory-capture-hooks-f8ce--session-end-finalize.2.md",
+        "wave": 2
+      },
+      {
+        "feature-name": "Capture Pipeline",
+        "plan": "2026-06-28-session-end-memory-capture-hooks-f8ce--capture-pipeline.1.md",
+        "wave": 1
+      }
+    ]
+  }
+}
