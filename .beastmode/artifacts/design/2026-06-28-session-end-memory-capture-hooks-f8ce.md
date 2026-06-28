@@ -1,7 +1,7 @@
 ---
 phase: design
 epic-id: bm-f8ce
-epic-slug: patched-zone-f8ce
+epic-slug: session-end-memory-capture-hooks-f8ce
 epic-name: Session End Memory Capture Hooks
 ---
 

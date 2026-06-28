@@ -1,0 +1,7 @@
+{
+  "status": "completed",
+  "artifacts": {
+    "design": "2026-06-28-patched-zone-f8ce.md",
+    "epic-name": "Session End Memory Capture Hooks"
+  }
+}
