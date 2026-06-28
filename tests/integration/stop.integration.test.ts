@@ -279,15 +279,25 @@ describe("CLI integration: hooks stop — capture pipeline", () => {
       expect(rb.exitCode).toBe(0);
 
       const raw = await readFile(dailyLogPath(tmpDir), "utf-8");
-      const lines = raw.split("\n").filter((l) => l.length > 0);
-      for (const line of lines) {
+      const lines = raw.split("\n");
+      // File must end with a newline — no partial trailing line.
+      expect(raw.endsWith("\n")).toBe(true);
+      const nonEmpty = lines.filter((l) => l.length > 0);
+      // Each line must be valid JSON — "never a partially written line".
+      for (const line of nonEmpty) {
         expect(() => JSON.parse(line)).not.toThrow();
       }
 
       const entries = await readJsonlEntries(dailyLogPath(tmpDir));
-      expect(entries.length).toBe(2);
-      expect(new Set(entries.map((e) => e.content as string))).toEqual(new Set(["from-a", "from-b"]));
-      expect(new Set(entries.map((e) => e.session_id as string))).toEqual(new Set(["sess-a", "sess-b"]));
+      // "at most one captured turn block may be lost" — so 1 or 2 entries are both acceptable.
+      expect(entries.length).toBeGreaterThanOrEqual(1);
+      expect(entries.length).toBeLessThanOrEqual(2);
+      const expectedContent = new Set(["from-a", "from-b"]);
+      const expectedSession = new Set(["sess-a", "sess-b"]);
+      for (const e of entries) {
+        expect(expectedContent.has(e.content as string)).toBe(true);
+        expect(expectedSession.has(e.session_id as string)).toBe(true);
+      }
     });
   });
 
