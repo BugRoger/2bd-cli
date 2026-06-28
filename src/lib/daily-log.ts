@@ -59,3 +59,33 @@ export async function appendTurnsToDailyLog(
   const next = existing.length === 0 ? newLines + "\n" : existing + newLines + "\n";
   await atomicWriteFile(path, next);
 }
+
+export interface SessionEndMarkerOptions {
+  session_id: string;
+  now?: Date;
+}
+
+export async function appendSessionEndMarker(
+  cwd: string,
+  options: SessionEndMarkerOptions
+): Promise<void> {
+  const now = options.now ?? new Date();
+  const path = dailyLogPath(cwd, now);
+  const ts = now.toISOString();
+
+  let existing = "";
+  try {
+    existing = await readFile(path, "utf-8");
+  } catch {
+    // missing file is fine
+  }
+
+  const markerLine = JSON.stringify({
+    ts,
+    session_id: options.session_id,
+    role: "session-end",
+  });
+
+  const next = existing.length === 0 ? markerLine + "\n" : existing + markerLine + "\n";
+  await atomicWriteFile(path, next);
+}

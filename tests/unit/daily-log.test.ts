@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { mkdtemp, readFile, rm, writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { appendTurnsToDailyLog, dailyLogPath } from "../../src/lib/daily-log.js";
+import { appendTurnsToDailyLog, appendSessionEndMarker, dailyLogPath } from "../../src/lib/daily-log.js";
 
 describe("daily-log", () => {
   let tmpDir: string;
@@ -107,6 +107,57 @@ describe("daily-log", () => {
       const lines = (await readFile(path, "utf-8")).split("\n").filter((l) => l.length > 0);
       expect(lines.length).toBe(1);
       expect(JSON.parse(lines[0]).content).toBe("line1\nline2\nline3");
+    });
+  });
+
+  describe("appendSessionEndMarker", () => {
+    it("appends a single line with ts, session_id, role='session-end' and no content field", async () => {
+      const fixedNow = new Date(2026, 5, 28, 9, 0, 0);
+      await appendSessionEndMarker(tmpDir, { session_id: "sess-end", now: fixedNow });
+
+      const path = dailyLogPath(tmpDir, fixedNow);
+      const lines = (await readFile(path, "utf-8")).split("\n").filter((l) => l.length > 0);
+      expect(lines.length).toBe(1);
+      const entry = JSON.parse(lines[0]);
+      expect(entry).toEqual({
+        ts: fixedNow.toISOString(),
+        session_id: "sess-end",
+        role: "session-end",
+      });
+      expect("content" in entry).toBe(false);
+    });
+
+    it("creates .2b/state/sessions/ lazily on first call", async () => {
+      const fixedNow = new Date(2026, 5, 28, 9, 0, 0);
+      await appendSessionEndMarker(tmpDir, { session_id: "sess-lazy", now: fixedNow });
+      const path = dailyLogPath(tmpDir, fixedNow);
+      const body = await readFile(path, "utf-8");
+      expect(body).toContain("session-end");
+      expect(body).toContain("sess-lazy");
+    });
+
+    it("appends to existing content without overwriting prior turn entries", async () => {
+      const fixedNow = new Date(2026, 5, 28, 9, 0, 0);
+      await appendTurnsToDailyLog(
+        tmpDir,
+        [{ role: "assistant", content: "prior turn" }],
+        { session_id: "sess-x", now: fixedNow }
+      );
+      await appendSessionEndMarker(tmpDir, { session_id: "sess-x", now: fixedNow });
+
+      const path = dailyLogPath(tmpDir, fixedNow);
+      const lines = (await readFile(path, "utf-8")).split("\n").filter((l) => l.length > 0);
+      expect(lines.length).toBe(2);
+      expect(JSON.parse(lines[0]).content).toBe("prior turn");
+      expect(JSON.parse(lines[1]).role).toBe("session-end");
+    });
+
+    it("uses the supplied now? for the ts field", async () => {
+      const fixedNow = new Date(2026, 0, 3, 12, 0, 0);
+      await appendSessionEndMarker(tmpDir, { session_id: "s", now: fixedNow });
+      const path = dailyLogPath(tmpDir, fixedNow);
+      const line = (await readFile(path, "utf-8")).split("\n").filter((l) => l.length > 0)[0];
+      expect(JSON.parse(line).ts).toBe(fixedNow.toISOString());
     });
   });
 });
