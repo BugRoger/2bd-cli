@@ -9,6 +9,13 @@ Thin CLI shell (commander) dispatching to per-hook orchestrator functions. Each 
 | CLI entry | src/cli.ts | Commander setup, command registration |
 | Query command | src/commands/query.ts | Validates prereqs, assembles prompt, spawns `claude -p` subprocess |
 | Session-start orchestrator | src/hooks/session-start.ts | Validates dirs, assembles context, writes JSON to stdout |
+| Stop hook orchestrator | src/hooks/stop.ts | Reads transcript slice since cursor, appends turn records to today's daily log, advances cursor; silent on any failure |
+| Session-end hook orchestrator | src/hooks/session-end.ts | Finalizes cursor for the terminating session_id, appends session-end marker to today's daily log |
+| Atomic write primitive | src/lib/atomic-write.ts | `atomicWriteFile(path, data)` — temp file in same dir + rename |
+| Cursor store | src/lib/cursor-store.ts | Load/save `.2b/state/cursors.json` (session_id -> {transcript_path, byte_offset, last_updated_iso}) |
+| Daily log writer | src/lib/daily-log.ts | Append turn records / session-end markers to `.2b/state/sessions/YYYY-MM-DD.jsonl` |
+| Transcript slice parser | src/lib/read-transcript.ts | Read transcript bytes since offset, emit one record per completed turn (text blocks only) |
+| Hook error logger | src/lib/hook-error-log.ts | Append timestamped JSONL entries to `.2b/state/hook-errors.log` |
 | Directory validation | src/lib/validate-dirs.ts | Checks .2b/ and required subdirs exist |
 | Context assembly | src/lib/assemble-context.ts | Discovers .2b/ .md files, calls MOC discovery, concatenates with headers |
 | MOC discovery | src/lib/discover-mocs.ts | Scans numbered top-level dirs (`/^\d{2} /`) for markdown with `type: moc` frontmatter, returns sorted MocRecord[] |
@@ -54,6 +61,21 @@ Three prerequisite checks run before any subprocess is spawned:
 - Helper functions (`buildSystemPrompt`, `buildMainPrompt`, `buildToolList`, `validateQueryPrereqs`) are exported and unit-tested independently
 - `whichFn` dependency injection allows testing the claude-not-found validation path without modifying the real PATH
 - Integration tests verify structural output properties (exit code, wikilink pattern, YAML frontmatter validity) not exact LLM content, because output is non-deterministic
+
+### Recursion Guard
+Any 2bd subcommand that spawns `claude -p` MUST inject `TWOBD_HOOK_DISABLED=1` into the subprocess env (merged with `process.env`). The Claude Code hooks shipped by 2bd-cli short-circuit to exit 0 when they see this sentinel set, preventing the inner session's per-turn hook firings from polluting the outer session's state. The env-var namespace prefix is `TWOBD_`.
+
+## State Directory (.2b/state/)
+
+The vault's hidden, gitignored area for 2bd-owned mutable state. Distinct from `.2b/{system,concepts,instructions}/` which are user-curated content. Conventions:
+
+- All writes go through the `atomicWriteFile` primitive (temp file in the same directory + rename) so partial files are never visible to readers.
+- Subdirectories and parent files are created lazily by whichever module writes first (`mkdir -p`); no eager bootstrap.
+- Files are never read back by 2bd-cli itself in v1 — they exist as raw material for downstream skills.
+- Layout today: `.2b/state/sessions/YYYY-MM-DD.jsonl` (daily session capture), `.2b/state/cursors.json` (per-session byte-offset cursors), `.2b/state/hook-errors.log` (silent-failure log).
+- `.2b/state/` MUST be gitignored; any new state file added here inherits that.
+
+See also: [worktree-claude-project-bucket](architecture/2026-06-28-worktree-claude-project-bucket.md) — why hooks read `transcript_path` from stdin rather than recomputing.
 
 ## Boundaries
 - stdin: not used

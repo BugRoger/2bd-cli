@@ -20,6 +20,7 @@
 - Dependency injection for external tool checks -- functions that validate external CLI availability accept an optional `whichFn` parameter; tests pass a stub returning null to simulate missing tools without modifying the real PATH
 - LLM-dependent integration tests verify structural properties (exit code, file existence, YAML frontmatter validity, wikilink pattern presence) not exact content, because LLM output is non-deterministic
 - LLM integration tests require extended timeout (120s) due to subprocess spawning and API calls
+- Concurrency-tolerance assertions: when a feature's spec accepts a bounded-loss tolerance (e.g. "at most one block lost"), the integration test asserts the bound (`length >= N-1 && length <= N`) plus structural well-formedness (every line valid JSON) — NOT exact count. Tightening such assertions to exact equality re-introduces the very flakiness the tolerance exists to absorb.
 
 ## Coverage
 - 110 tests total: 72 unit + 38 integration (10 test files)
