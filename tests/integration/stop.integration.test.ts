@@ -283,6 +283,11 @@ describe("CLI integration: hooks stop — capture pipeline", () => {
       for (const line of lines) {
         expect(() => JSON.parse(line)).not.toThrow();
       }
+
+      const entries = await readJsonlEntries(dailyLogPath(tmpDir));
+      expect(entries.length).toBe(2);
+      expect(new Set(entries.map((e) => e.content as string))).toEqual(new Set(["from-a", "from-b"]));
+      expect(new Set(entries.map((e) => e.session_id as string))).toEqual(new Set(["sess-a", "sess-b"]));
     });
   });
 
@@ -317,14 +322,17 @@ describe("CLI integration: hooks stop — capture pipeline", () => {
       await writeTranscript(transcriptA, [assistantTurnLine("a1")]);
       await writeTranscript(transcriptB, [assistantTurnLine("b1")]);
 
-      await runStopHook(tmpDir, JSON.stringify({ session_id: "sess-a", transcript_path: transcriptA }));
-      await runStopHook(tmpDir, JSON.stringify({ session_id: "sess-b", transcript_path: transcriptB }));
+      const r1 = await runStopHook(tmpDir, JSON.stringify({ session_id: "sess-a", transcript_path: transcriptA }));
+      expect(r1.exitCode).toBe(0);
+      const r2 = await runStopHook(tmpDir, JSON.stringify({ session_id: "sess-b", transcript_path: transcriptB }));
+      expect(r2.exitCode).toBe(0);
 
       const cursorsAfterFirst = JSON.parse(await readFile(cursorsPath(tmpDir), "utf-8"));
       const offsetBBefore = cursorsAfterFirst["sess-b"].byte_offset;
 
       await writeTranscript(transcriptA, [assistantTurnLine("a1"), assistantTurnLine("a2")]);
-      await runStopHook(tmpDir, JSON.stringify({ session_id: "sess-a", transcript_path: transcriptA }));
+      const r3 = await runStopHook(tmpDir, JSON.stringify({ session_id: "sess-a", transcript_path: transcriptA }));
+      expect(r3.exitCode).toBe(0);
 
       const cursorsAfterSecond = JSON.parse(await readFile(cursorsPath(tmpDir), "utf-8"));
       expect(cursorsAfterSecond["sess-b"].byte_offset).toBe(offsetBBefore);
