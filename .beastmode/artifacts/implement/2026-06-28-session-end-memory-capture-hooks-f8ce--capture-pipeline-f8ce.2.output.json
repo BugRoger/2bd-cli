@@ -1,0 +1,12 @@
+{
+  "status": "completed",
+  "artifacts": {
+    "features": [
+      {
+        "feature-slug": "capture-pipeline-f8ce.2",
+        "feature-name": "Capture Pipeline",
+        "status": "completed"
+      }
+    ]
+  }
+}
