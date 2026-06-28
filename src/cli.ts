@@ -2,6 +2,7 @@
 import { Command } from "commander";
 import { sessionStartAction } from "./hooks/session-start.js";
 import { stopAction } from "./hooks/stop.js";
+import { sessionEndAction } from "./hooks/session-end.js";
 import { queryAction } from "./commands/query.js";
 
 const program = new Command();
@@ -23,6 +24,11 @@ hooks
   .command("stop")
   .description("Capture session turns to daily JSONL log")
   .action(stopAction);
+
+hooks
+  .command("session-end")
+  .description("Finalize a Claude Code session: flush remaining turns and append a session-end marker")
+  .action(sessionEndAction);
 
 program
   .command("query")
