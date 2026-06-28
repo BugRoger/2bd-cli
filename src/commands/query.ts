@@ -159,6 +159,7 @@ export async function queryAction(
     stdin: "pipe",
     stdout: "pipe",
     stderr: "pipe",
+    env: { ...process.env, TWOBD_HOOK_DISABLED: "1" },
   });
 
   const stdoutReader = proc.stdout.getReader();
